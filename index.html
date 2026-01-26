@@ -1,0 +1,853 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Playground</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-all duration-300">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-brain mr-2"></i>
+                            <span data-en="ML Playground" data-ar="ملعب التعلم الآلي">ML Playground</span>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button class="nav-link active" data-section="home" data-en="Home" data-ar="الرئيسية">Home</button>
+                        <button class="nav-link" data-section="regression" data-en="Regression Models" data-ar="نماذج الانحدار">Regression Models</button>
+                        <button class="nav-link" data-section="classification" data-en="Classification Models" data-ar="نماذج التصنيف">Classification Models</button>
+                        <button class="nav-link" data-section="clustering" data-en="Clustering Models" data-ar="نماذج التجميع">Clustering Models</button>
+                        <button class="nav-link" data-section="timeseries" data-en="Time Series" data-ar="السلاسل الزمنية">Time Series</button>
+                        <button class="nav-link" data-section="evaluation" data-en="Model Evaluation" data-ar="تقييم النموذج">Model Evaluation</button>
+                        <button class="nav-link" data-section="computer-vision" data-en="Computer Vision" data-ar="الرؤية الحاسوبية">Computer Vision</button>
+                    </div>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+
+                    <!-- Language Toggle -->
+                    <div class="relative">
+                        <button id="language-toggle" class="flex items-center p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200">
+                            <i class="fas fa-globe mr-2"></i>
+                            <span data-en="English" data-ar="العربية">English</span>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button class="mobile-nav-link active" data-section="home" data-en="Home" data-ar="الرئيسية">Home</button>
+                <button class="mobile-nav-link" data-section="regression" data-en="Regression Models" data-ar="نماذج الانحدار">Regression Models</button>
+                <button class="mobile-nav-link" data-section="classification" data-en="Classification Models" data-ar="نماذج التصنيف">Classification Models</button>
+                <button class="mobile-nav-link" data-section="clustering" data-en="Clustering Models" data-ar="نماذج التجميع">Clustering Models</button>
+                <button class="mobile-nav-link" data-section="timeseries" data-en="Time Series" data-ar="السلاسل الزمنية">Time Series</button>
+                <button class="mobile-nav-link" data-section="evaluation" data-en="Model Evaluation" data-ar="تقييم النموذج">Model Evaluation</button>
+                <button class="mobile-nav-link" data-section="computer-vision" data-en="Computer Vision" data-ar="الرؤية الحاسوبية">Computer Vision</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16 min-h-screen">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Welcome Hero -->
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        <span data-en="Welcome to ML Playground" data-ar="مرحباً بك في ملعب التعلم الآلي">Welcome to ML Playground</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        <span data-en="Explore machine learning models with your data. Upload a dataset and start building predictive models instantly." data-ar="استكشف نماذج التعلم الآلي مع بياناتك. ارفع مجموعة بيانات وابدأ ببناء النماذج التنبؤية فوراً.">
+                            Explore machine learning models with your data. Upload a dataset and start building predictive models instantly.
+                        </span>
+                    </p>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+                    <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-upload mr-2 text-blue-600"></i>
+                        <span data-en="Upload Your Dataset" data-ar="ارفع مجموعة البيانات">Upload Your Dataset</span>
+                    </h3>
+                    
+                    <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-500 transition-all duration-300" id="upload-area">
+                        <div class="upload-icon mb-4">
+                            <i class="fas fa-cloud-upload-alt text-6xl text-gray-400"></i>
+                        </div>
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                            <span data-en="Drag and drop your file here" data-ar="اسحب وأفلت ملفك هنا">Drag and drop your file here</span>
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            <span data-en="or click to browse files" data-ar="أو اضغط للبحث عن الملفات">or click to browse files</span>
+                        </p>
+                        <input type="file" id="file-input" accept=".xlsx,.csv,.png,.jpg,.jpeg,.gif,.bmp,.webp" class="hidden" multiple>
+                        <div class="space-y-2">
+                            <button class="btn-primary mr-2" onclick="document.getElementById('file-input').click()">
+                                <i class="fas fa-folder-open mr-2"></i>
+                                <span data-en="📁 Upload Dataset (.xlsx or .csv)" data-ar="📁 ارفع مجموعة البيانات (.xlsx أو .csv)">📁 Upload Dataset (.xlsx or .csv)</span>
+                            </button>
+                            <button class="btn-secondary" onclick="document.getElementById('file-input').click()">
+                                <i class="fas fa-image mr-2"></i>
+                                <span data-en="🖼️ Upload Images" data-ar="🖼️ ارفع الصور">🖼️ Upload Images</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Upload Status -->
+                    <div id="upload-status" class="mt-4 hidden">
+                        <div class="flex items-center p-4 bg-green-100 dark:bg-green-900 border border-green-400 rounded-lg">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span class="text-green-800 dark:text-green-200">File uploaded successfully!</span>
+                        </div>
+                    </div>
+
+                    <!-- Error Status -->
+                    <div id="upload-error" class="mt-4 hidden">
+                        <div class="flex items-center p-4 bg-red-100 dark:bg-red-900 border border-red-400 rounded-lg">
+                            <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+                            <span class="text-red-800 dark:text-red-200" id="error-message"></span>
+                        </div>
+                    </div>
+
+                    <!-- Image Gallery -->
+                    <div id="image-gallery" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hidden">
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <i class="fas fa-images mr-2 text-purple-600"></i>
+                            <span data-en="Uploaded Images" data-ar="الصور المرفوعة">Uploaded Images</span>
+                        </h3>
+                        <div id="image-grid" class="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 xl:grid-cols-20 gap-2">
+                            <!-- Images will be populated here -->
+                        </div>
+                        <div id="image-info" class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                            <!-- Image info will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dataset Preview -->
+                <div id="dataset-preview" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hidden">
+                    <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-table mr-2 text-green-600"></i>
+                        <span data-en="Dataset Preview" data-ar="معاينة البيانات">Dataset Preview</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table id="data-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <!-- Headers will be populated dynamically -->
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Data will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="dataset-info" class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                        <!-- Dataset info will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Quick Start Guide -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-green-100 text-green-600">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                            <span data-en="Regression" data-ar="الانحدار">Regression</span>
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            <span data-en="Predict continuous values with linear, polynomial, and regularized models." data-ar="تنبأ بالقيم المستمرة باستخدام النماذج الخطية والمتعددة الحدود والمنتظمة.">
+                                Predict continuous values with linear, polynomial, and regularized models.
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon bg-blue-100 text-blue-600">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                            <span data-en="Classification" data-ar="التصنيف">Classification</span>
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            <span data-en="Classify data into categories using decision trees, SVM, and more." data-ar="صنف البيانات إلى فئات باستخدام أشجار القرار و SVM والمزيد.">
+                                Classify data into categories using decision trees, SVM, and more.
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon bg-purple-100 text-purple-600">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                            <span data-en="Clustering" data-ar="التجميع">Clustering</span>
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            <span data-en="Discover hidden patterns and group similar data points together." data-ar="اكتشف الأنماط المخفية واجمع نقاط البيانات المتشابهة معاً.">
+                                Discover hidden patterns and group similar data points together.
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon bg-yellow-100 text-yellow-600">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                            <span data-en="Time Series" data-ar="السلاسل الزمنية">Time Series</span>
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            <span data-en="Forecast future values based on historical time-based data." data-ar="تنبأ بالقيم المستقبلية بناءً على البيانات التاريخية الزمنية.">
+                                Forecast future values based on historical time-based data.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regression Section -->
+        <section id="regression" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-chart-line mr-2 text-green-600"></i>
+                    <span data-en="Regression Models" data-ar="نماذج الانحدار">Regression Models</span>
+                </h2>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Model Selection -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Configuration" data-ar="إعداد النموذج">Model Configuration</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Algorithm" data-ar="الخوارزمية">Algorithm</span>
+                                    <i class="fas fa-info-circle ml-1 text-blue-500 cursor-help" title="Choose the regression algorithm"></i>
+                                </label>
+                                <select id="regression-algorithm" class="form-select">
+                                    <option value="linear" data-en="Linear Regression" data-ar="الانحدار الخطي">Linear Regression</option>
+                                    <option value="polynomial" data-en="Polynomial Regression" data-ar="الانحدار متعدد الحدود">Polynomial Regression</option>
+                                    <option value="ridge" data-en="Ridge Regression" data-ar="انحدار Ridge">Ridge Regression</option>
+                                    <option value="lasso" data-en="Lasso Regression" data-ar="انحدار Lasso">Lasso Regression</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Target Variable (y)" data-ar="المتغير التابع (y)">Target Variable (y)</span>
+                                </label>
+                                <select id="regression-target" class="form-select">
+                                    <option value="" data-en="Select target column" data-ar="اختر العمود المستهدف">Select target column</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Feature Variables (X)" data-ar="متغيرات الميزة (X)">Feature Variables (X)</span>
+                                </label>
+                                <div id="regression-features" class="space-y-2 max-h-32 overflow-y-auto border rounded p-2">
+                                    <!-- Feature checkboxes will be populated here -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Train/Test Split" data-ar="تقسيم التدريب/الاختبار">Train/Test Split</span>
+                                    <span id="split-value" class="text-blue-600">80%</span>
+                                </label>
+                                <input type="range" id="train-split" min="60" max="90" value="80" class="form-range">
+                            </div>
+
+                            <div id="polynomial-degree" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Polynomial Degree" data-ar="درجة متعدد الحدود">Polynomial Degree</span>
+                                </label>
+                                <input type="number" min="2" max="5" value="2" class="form-input">
+                            </div>
+
+                            <div id="regularization-alpha" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Regularization Alpha" data-ar="ألفا التنظيم">Regularization Alpha</span>
+                                </label>
+                                <input type="number" min="0.01" max="10" step="0.01" value="1.0" class="form-input">
+                            </div>
+
+                            <button id="train-regression" class="btn-primary w-full" disabled>
+                                <i class="fas fa-play mr-2"></i>
+                                <span data-en="Train Model" data-ar="تدريب النموذج">Train Model</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Results" data-ar="نتائج النموذج">Model Results</span>
+                        </h3>
+                        
+                        <div id="regression-results" class="results-container hidden">
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">R² Score</h4>
+                                    <p id="r2-score" class="text-2xl font-bold text-blue-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">MAE</h4>
+                                    <p id="mae-score" class="text-2xl font-bold text-green-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">MSE</h4>
+                                    <p id="mse-score" class="text-2xl font-bold text-yellow-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">RMSE</h4>
+                                    <p id="rmse-score" class="text-2xl font-bold text-purple-600">--</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <canvas id="regression-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="regression-placeholder" class="text-center py-12">
+                            <i class="fas fa-chart-line text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                <span data-en="Upload data and configure model to see results" data-ar="ارفع البيانات واضبط النموذج لرؤية النتائج">Upload data and configure model to see results</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classification Section -->
+        <section id="classification" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-project-diagram mr-2 text-blue-600"></i>
+                    <span data-en="Classification Models" data-ar="نماذج التصنيف">Classification Models</span>
+                </h2>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Model Configuration -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Configuration" data-ar="إعداد النموذج">Model Configuration</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Algorithm" data-ar="الخوارزمية">Algorithm</span>
+                                </label>
+                                <select id="classification-algorithm" class="form-select">
+                                    <option value="logistic" data-en="Logistic Regression" data-ar="الانحدار اللوجستي">Logistic Regression</option>
+                                    <option value="decision-tree" data-en="Decision Tree" data-ar="شجرة القرار">Decision Tree</option>
+                                    <option value="knn" data-en="K-Nearest Neighbors" data-ar="أقرب الجيران">K-Nearest Neighbors</option>
+                                    <option value="svm" data-en="Support Vector Machine" data-ar="آلة الدعم الشعاعي">Support Vector Machine</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Target Variable (y)" data-ar="المتغير التابع (y)">Target Variable (y)</span>
+                                </label>
+                                <select id="classification-target" class="form-select">
+                                    <option value="" data-en="Select target column" data-ar="اختر العمود المستهدف">Select target column</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Feature Variables (X)" data-ar="متغيرات الميزة (X)">Feature Variables (X)</span>
+                                </label>
+                                <div id="classification-features" class="space-y-2 max-h-32 overflow-y-auto border rounded p-2">
+                                    <!-- Feature checkboxes will be populated here -->
+                                </div>
+                            </div>
+
+                            <div id="knn-neighbors" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Number of Neighbors (K)" data-ar="عدد الجيران (K)">Number of Neighbors (K)</span>
+                                </label>
+                                <input type="number" min="1" max="20" value="5" class="form-input">
+                            </div>
+
+                            <div id="svm-kernel" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Kernel Type" data-ar="نوع النواة">Kernel Type</span>
+                                </label>
+                                <select class="form-select">
+                                    <option value="rbf">RBF</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="poly">Polynomial</option>
+                                </select>
+                            </div>
+
+                            <button id="train-classification" class="btn-primary w-full" disabled>
+                                <i class="fas fa-play mr-2"></i>
+                                <span data-en="Train Model" data-ar="تدريب النموذج">Train Model</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Results" data-ar="نتائج النموذج">Model Results</span>
+                        </h3>
+                        
+                        <div id="classification-results" class="results-container hidden">
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Accuracy" data-ar="الدقة">Accuracy</span>
+                                    </h4>
+                                    <p id="accuracy-score" class="text-2xl font-bold text-blue-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Precision" data-ar="الإتقان">Precision</span>
+                                    </h4>
+                                    <p id="precision-score" class="text-2xl font-bold text-green-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Recall" data-ar="الاستدعاء">Recall</span>
+                                    </h4>
+                                    <p id="recall-score" class="text-2xl font-bold text-yellow-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">F1-Score</h4>
+                                    <p id="f1-score" class="text-2xl font-bold text-purple-600">--</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <canvas id="classification-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="classification-placeholder" class="text-center py-12">
+                            <i class="fas fa-project-diagram text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                <span data-en="Configure model to see classification results" data-ar="اضبط النموذج لرؤية نتائج التصنيف">Configure model to see classification results</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clustering Section -->
+        <section id="clustering" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-sitemap mr-2 text-purple-600"></i>
+                    <span data-en="Clustering Models" data-ar="نماذج التجميع">Clustering Models</span>
+                </h2>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Model Configuration -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Configuration" data-ar="إعداد النموذج">Model Configuration</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Algorithm" data-ar="الخوارزمية">Algorithm</span>
+                                </label>
+                                <select id="clustering-algorithm" class="form-select">
+                                    <option value="kmeans" data-en="K-Means Clustering" data-ar="تجميع K-Means">K-Means Clustering</option>
+                                    <option value="dbscan" data-en="DBSCAN" data-ar="DBSCAN">DBSCAN</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Feature Variables" data-ar="متغيرات الميزة">Feature Variables</span>
+                                </label>
+                                <div id="clustering-features" class="space-y-2 max-h-32 overflow-y-auto border rounded p-2">
+                                    <!-- Feature checkboxes will be populated here -->
+                                </div>
+                            </div>
+
+                            <div id="kmeans-clusters">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Number of Clusters (K)" data-ar="عدد التجمعات (K)">Number of Clusters (K)</span>
+                                </label>
+                                <input type="number" min="2" max="10" value="3" class="form-input">
+                            </div>
+
+                            <div id="dbscan-params" class="hidden space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Epsilon</label>
+                                    <input type="number" min="0.1" max="2" step="0.1" value="0.5" class="form-input">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Min Samples</label>
+                                    <input type="number" min="2" max="20" value="5" class="form-input">
+                                </div>
+                            </div>
+
+                            <button id="train-clustering" class="btn-primary w-full" disabled>
+                                <i class="fas fa-play mr-2"></i>
+                                <span data-en="Run Clustering" data-ar="تشغيل التجميع">Run Clustering</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Clustering Results" data-ar="نتائج التجميع">Clustering Results</span>
+                        </h3>
+                        
+                        <div id="clustering-results" class="results-container hidden">
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Silhouette Score" data-ar="نتيجة الصورة الظلية">Silhouette Score</span>
+                                    </h4>
+                                    <p id="silhouette-score" class="text-2xl font-bold text-purple-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Clusters Found" data-ar="التجمعات المكتشفة">Clusters Found</span>
+                                    </h4>
+                                    <p id="clusters-found" class="text-2xl font-bold text-blue-600">--</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <canvas id="clustering-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="clustering-placeholder" class="text-center py-12">
+                            <i class="fas fa-sitemap text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                <span data-en="Configure clustering parameters to see results" data-ar="اضبط معاملات التجميع لرؤية النتائج">Configure clustering parameters to see results</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Time Series Section -->
+        <section id="timeseries" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-clock mr-2 text-yellow-600"></i>
+                    <span data-en="Time Series Forecasting" data-ar="تنبؤ السلاسل الزمنية">Time Series Forecasting</span>
+                </h2>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Model Configuration -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Configuration" data-ar="إعداد النموذج">Model Configuration</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Algorithm" data-ar="الخوارزمية">Algorithm</span>
+                                </label>
+                                <select id="timeseries-algorithm" class="form-select">
+                                    <option value="arima" data-en="ARIMA" data-ar="ARIMA">ARIMA</option>
+                                    <option value="prophet" data-en="Prophet" data-ar="Prophet">Prophet</option>
+                                    <option value="lstm" data-en="LSTM Neural Network" data-ar="شبكة LSTM العصبية">LSTM Neural Network</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Date Column" data-ar="عمود التاريخ">Date Column</span>
+                                </label>
+                                <select id="timeseries-date" class="form-select">
+                                    <option value="" data-en="Select date column" data-ar="اختر عمود التاريخ">Select date column</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Value Column" data-ar="عمود القيمة">Value Column</span>
+                                </label>
+                                <select id="timeseries-value" class="form-select">
+                                    <option value="" data-en="Select value column" data-ar="اختر عمود القيمة">Select value column</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Forecast Horizon (periods)" data-ar="أفق التنبؤ (فترات)">Forecast Horizon (periods)</span>
+                                </label>
+                                <input type="number" min="1" max="365" value="30" class="form-input">
+                            </div>
+
+                            <button id="train-timeseries" class="btn-primary w-full" disabled>
+                                <i class="fas fa-play mr-2"></i>
+                                <span data-en="Generate Forecast" data-ar="إنشاء التنبؤ">Generate Forecast</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Forecast Results" data-ar="نتائج التنبؤ">Forecast Results</span>
+                        </h3>
+                        
+                        <div id="timeseries-results" class="results-container hidden">
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">MAE</h4>
+                                    <p id="ts-mae-score" class="text-2xl font-bold text-yellow-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">MAPE</h4>
+                                    <p id="mape-score" class="text-2xl font-bold text-blue-600">--</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <canvas id="timeseries-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="timeseries-placeholder" class="text-center py-12">
+                            <i class="fas fa-clock text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                <span data-en="Configure time series parameters to see forecast" data-ar="اضبط معاملات السلاسل الزمنية لرؤية التنبؤ">Configure time series parameters to see forecast</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section id="evaluation" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-chart-bar mr-2 text-indigo-600"></i>
+                    <span data-en="Model Evaluation" data-ar="تقييم النموذج">Model Evaluation</span>
+                </h2>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <div class="text-center py-12">
+                        <i class="fas fa-chart-bar text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            <span data-en="Train a model to see detailed evaluation metrics" data-ar="درب نموذجاً لرؤية مقاييس التقييم التفصيلية">Train a model to see detailed evaluation metrics</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Computer Vision Section -->
+        <section id="computer-vision" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                    <i class="fas fa-eye mr-2 text-indigo-600"></i>
+                    <span data-en="Computer Vision" data-ar="الرؤية الحاسوبية">Computer Vision</span>
+                </h2>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Model Configuration -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Image Classification Training" data-ar="تدريب تصنيف الصور">Image Classification Training</span>
+                        </h3>
+                        
+                        <!-- Group Management -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Create Image Groups" data-ar="إنشاء مجموعات الصور">Create Image Groups</span>
+                                </label>
+                                <div class="flex space-x-2 mb-3">
+                                    <input type="text" id="group-name-input" placeholder="Group name / اسم المجموعة" class="form-input flex-1">
+                                    <button id="add-group-btn" class="btn-secondary">
+                                        <i class="fas fa-plus mr-1"></i>
+                                        <span data-en="Add" data-ar="إضافة">Add</span>
+                                    </button>
+                                </div>
+                                <div id="image-groups-container" class="space-y-3">
+                                    <!-- Image groups will be populated here -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Model Architecture" data-ar="هيكل النموذج">Model Architecture</span>
+                                </label>
+                                <select id="cv-model" class="form-select">
+                                    <option value="cnn" data-en="Convolutional Neural Network" data-ar="الشبكة العصبية التطبيقية">CNN</option>
+                                    <option value="resnet" data-en="ResNet" data-ar="ResNet">ResNet</option>
+                                    <option value="mobilenet" data-en="MobileNet" data-ar="MobileNet">MobileNet</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <span data-en="Training Parameters" data-ar="معاملات التدريب">Training Parameters</span>
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="text-xs text-gray-500"><span data-en="Epochs" data-ar="العصور">Epochs</span></label>
+                                        <input type="number" id="cv-epochs" min="5" max="100" value="20" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500"><span data-en="Learning Rate" data-ar="معدل التعلم">Learning Rate</span></label>
+                                        <input type="number" id="cv-learning-rate" min="0.001" max="0.1" step="0.001" value="0.01" class="form-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="train-cv" class="btn-primary w-full" disabled>
+                                <i class="fas fa-play mr-2"></i>
+                                <span data-en="Train Classification Model" data-ar="تدريب نموذج التصنيف">Train Classification Model</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results and Prediction -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            <span data-en="Model Results & Prediction" data-ar="نتائج النموذج والتنبؤ">Model Results & Prediction</span>
+                        </h3>
+                        
+                        <div id="cv-results" class="results-container hidden">
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Training Accuracy" data-ar="دقة التدريب">Training Accuracy</span>
+                                    </h4>
+                                    <p id="cv-train-accuracy" class="text-2xl font-bold text-blue-600">--</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                        <span data-en="Validation Accuracy" data-ar="دقة التحقق">Validation Accuracy</span>
+                                    </h4>
+                                    <p id="cv-val-accuracy" class="text-2xl font-bold text-green-600">--</p>
+                                </div>
+                            </div>
+
+                            <!-- Prediction Section -->
+                            <div class="border-t pt-4">
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                                    <span data-en="Test New Image" data-ar="اختبار صورة جديدة">Test New Image</span>
+                                </h4>
+                                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center">
+                                    <input type="file" id="prediction-image-input" accept="image/*" class="hidden">
+                                    <button onclick="document.getElementById('prediction-image-input').click()" class="btn-secondary mb-2">
+                                        <i class="fas fa-upload mr-2"></i>
+                                        <span data-en="Upload Test Image" data-ar="رفع صورة الاختبار">Upload Test Image</span>
+                                    </button>
+                                    <div id="prediction-result" class="hidden">
+                                        <div id="test-image-preview" class="mb-3"></div>
+                                        <div class="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg">
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">
+                                                <span data-en="Predicted Group:" data-ar="المجموعة المتوقعة:">Predicted Group:</span>
+                                            </p>
+                                            <p id="prediction-label" class="text-xl font-bold text-blue-600"></p>
+                                            <p class="text-sm text-gray-500">
+                                                <span data-en="Confidence:" data-ar="الثقة:">Confidence:</span> 
+                                                <span id="prediction-confidence" class="font-semibold"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container mt-4">
+                                <canvas id="cv-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="cv-placeholder" class="text-center py-12">
+                            <i class="fas fa-eye text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                <span data-en="Create groups and upload images to start training" data-ar="أنشئ مجموعات وارفع الصور لبدء التدريب">Create groups and upload images to start training</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Results Modal -->
+    <div id="results-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">
+                    <span data-en="Analysis Results" data-ar="نتائج التحليل">Analysis Results</span>
+                </h3>
+                <span class="modal-close" onclick="closeResultsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modal-metrics" class="modal-metrics-grid">
+                    <!-- Metrics will be populated here -->
+                </div>
+                <div class="modal-chart-container">
+                    <canvas id="modal-chart"></canvas>
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button class="btn-secondary" onclick="downloadResults()">
+                        <i class="fas fa-download mr-2"></i>
+                        <span data-en="Download Results" data-ar="تحميل النتائج">Download Results</span>
+                    </button>
+                    <button class="btn-primary" onclick="closeResultsModal()">
+                        <i class="fas fa-times mr-2"></i>
+                        <span data-en="Close" data-ar="إغلاق">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
